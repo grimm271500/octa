@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For Sneha 💖</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #ffd6e8, #ffb3d1 50%, #ff8fb8);
+    font-family: "Segoe UI", system-ui, sans-serif; overflow: hidden; text-align: center;
+  }
+  .card {
+    position: relative; z-index: 2; background: rgba(255,255,255,.75);
+    backdrop-filter: blur(8px); border-radius: 28px; padding: 36px 28px;
+    width: min(90vw, 420px); box-shadow: 0 12px 40px rgba(255,80,140,.35);
+  }
+  h1 { font-size: 2rem; color: #d6336c; margin-bottom: 14px; }
+  #msg { min-height: 110px; color: #6b2a45; font-size: 1.1rem; line-height: 1.6; white-space: pre-line; }
+  .btns { margin-top: 22px; height: 56px; position: relative; }
+  button {
+    border: none; border-radius: 999px; padding: 12px 26px; font-size: 1rem; cursor: pointer;
+    font-weight: 600; transition: transform .15s;
+  }
+  button:active { transform: scale(.95); }
+  #yes { background: #ff4d8d; color: #fff; }
+  #no { background: #fff; color: #d6336c; border: 2px solid #ff4d8d; position: relative; }
+  #final { display: none; font-size: 1.3rem; color: #d6336c; font-weight: 700; margin-top: 10px; }
+  .heart { position: fixed; bottom: -40px; z-index: 1; animation: rise linear forwards; user-select: none; }
+  @keyframes rise { to { transform: translateY(-115vh) rotate(25deg); opacity: 0; } }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Hey Sneha 💕</h1>
+  <p id="msg"></p>
+  <div class="btns" id="btns" style="display:none">
+    <button id="yes">Yes 💖</button>
+    <button id="no">No</button>
+  </div>
+  <p id="final">I knew it! I love you, Sneha Narsule 🥰</p>
+</div>
+
+<script>
+  // ✏️ Edit this message to make it yours
+  const text =
+`Get well soon, dumbo. 🤒💕
+I love taking care of you so much.
+
+You're my favourite person,
+my best distraction, and my happy place. ✨
+
+One quick question...
+Do you love me? 🥺`;
+
+  const msg = document.getElementById("msg");
+  const btns = document.getElementById("btns");
+  let i = 0;
+  (function type() {
+    if (i < text.length) { msg.textContent += text[i++]; setTimeout(type, 55); }
+    else btns.style.display = "block";
+  })();
+
+  // floating hearts
+  const emojis = ["💖","💕","💗","💘","🌸","✨"];
+  function heart() {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.fontSize = 16 + Math.random() * 28 + "px";
+    h.style.animationDuration = 5 + Math.random() * 5 + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 10000);
+  }
+  setInterval(heart, 350);
+
+  // the "No" button runs away
+  const no = document.getElementById("no");
+  function dodge() {
+    no.style.position = "fixed";
+    no.style.left = Math.random() * (innerWidth - 100) + "px";
+    no.style.top = Math.random() * (innerHeight - 50) + "px";
+    no.style.zIndex = 5;
+  }
+  no.addEventListener("mouseover", dodge);
+  no.addEventListener("touchstart", e => { e.preventDefault(); dodge(); });
+  no.addEventListener("click", dodge);
+
+  document.getElementById("yes").addEventListener("click", () => {
+    btns.style.display = "none";
+    no.style.display = "none";
+    msg.textContent = "";
+    document.getElementById("final").style.display = "block";
+    for (let k = 0; k < 60; k++) setTimeout(heart, k * 40);
+  });
+</script>
+</body>
+</html>
